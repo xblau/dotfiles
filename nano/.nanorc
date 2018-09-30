@@ -1,0 +1,8 @@
+set tabsize 4
+set tabstospaces
+
+set linenumbers
+set constantshow
+set positionlog
+
+unset historylog

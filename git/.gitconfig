@@ -1,0 +1,14 @@
+[user]
+    name = Daniel Mosquera
+    email = daniel@blaudev.es
+    signingkey = F3746CDB
+
+[alias]
+    logs = log --show-signature
+
+[push]
+    default = simple
+
+[commit]
+    gpgsign = true
+

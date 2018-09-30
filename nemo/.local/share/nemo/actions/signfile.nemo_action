@@ -1,0 +1,10 @@
+[Nemo Action]
+Name=Sign file with GnuPG
+Comment=Create a detached signature of %f
+
+Exec=gpg --yes --armor --output %F.asc --detach-sig %F
+
+Selection=s
+Extensions=nodirs
+
+Quote=double

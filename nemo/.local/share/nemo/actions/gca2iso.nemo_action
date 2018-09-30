@@ -1,0 +1,11 @@
+[Nemo Action]
+Name=Recreate ISO from GCA
+Comment=Recreate an ISO image from a GCA file
+
+Dependencies=gcarchiver;
+Exec=gnome-terminal -x gcarchiver -recreate -in %F -out %F.iso
+
+Selection=s
+Extensions=gca
+
+Quote=double

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# (c) 2017 xBlau; MIT License.
+
+if [[ ! -f $1 ]]; then
+    echo "Error: couldn't find $1!"; exit 1
+fi
+
+case $1 in
+    *.crt)
+        openssl x509 -pubkey < $1        | \
+        openssl pkey -pubin -outform der | \
+        openssl dgst -sha256 -binary     | \
+        base64;;
+
+    *.csr)
+        openssl req -in $1 -pubkey -noout | \
+        openssl pkey -pubin -outform der  | \
+        openssl dgst -sha256 -binary      | \
+        base64;;
+
+    *.pub)
+        openssl pkey -in $1 -pubin -outform der | \
+        openssl dgst -sha256 -binary | base64;;
+
+    *)
+        echo "Error: couldn't determine file type of $1"; exit 2
+esac

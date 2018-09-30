@@ -1,0 +1,11 @@
+[Nemo Action]
+Name=Convert ISO to GCA
+Comment=Convert a (GameCube) ISO to GCA
+
+Dependencies=gcarchiver;
+Exec=gnome-terminal -x gcarchiver -in %F -out %F.gca
+
+Selection=s
+Extensions=iso
+
+Quote=double

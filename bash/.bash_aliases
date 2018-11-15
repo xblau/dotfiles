@@ -19,3 +19,7 @@ function cleanfile {
     sed -i 's/\t/    /g' $1
     sed -i 's/\s*$//'    $1
 }
+
+function rmdupes {
+    awk '!a[$0]++' $1
+}

@@ -37,7 +37,14 @@ __prompt_command() {
     CLYELLOW='\[\e[93m\]'
     CLBLUE='\[\e[94m\]'
 
-    PS1+="${CRESET}${CBOLD}┌─[\A] ${CGREEN}\u@\h${CRESET}:${CLBLUE}\w\n${CRESET}└─${CBOLD}($ecode) \\$ ${CRESET}"
+    TERMCOLOR=$CGREEN
+
+    if [[ -n $SSH_CLIENT ]]; then
+        TERMCOLOR=$CLYELLOW
+    fi
+
+    echo -ne "\033]0;${USER}@${HOSTNAME}\007"
+    PS1+="${CRESET}${CBOLD}┌─[\A] $CGREEN\u@${TERMCOLOR}\h${CRESET}:${CLBLUE}\w\n${CRESET}└─${CBOLD}($ecode) \\$ ${CRESET}"
 }
 
 

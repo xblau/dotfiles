@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# (c) 2017 Daniel Mosquera - MIT License
+
+if [[ $# -ne 2 ]]; then
+    echo "Usage: keyfp {sha1|md5} {path to public key}"
+    exit
+fi
+
+if [[ ! -f $2 ]]; then
+    echo "Error: public key file not found."
+    exit
+fi
+
+if [[ $1 == "sha1" ]] || [[ $1 == "md5" ]]; then
+    cut -d' ' -f 2 $2 | base64 -d | openssl dgst -binary -$1 | xxd -ps | sed 's/.\{2\}/&:/g;s/:$//'
+fi

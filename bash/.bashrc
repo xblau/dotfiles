@@ -37,14 +37,14 @@ __prompt_command() {
     CLYELLOW='\[\e[93m\]'
     CLBLUE='\[\e[94m\]'
 
-    TERMCOLOR=$CGREEN
+    SSHNOTICE=""
 
     if [[ -n $SSH_CLIENT ]]; then
-        TERMCOLOR=$CLYELLOW
+        SSHNOTICE="$CLYELLOW[SSH] "
     fi
 
     echo -ne "\033]0;${USER}@${HOSTNAME}\007"
-    PS1+="${CRESET}${CBOLD}┌─[\A] $CGREEN\u@${TERMCOLOR}\h${CRESET}:${CLBLUE}\w\n${CRESET}└─${CBOLD}($ecode) \\$ ${CRESET}"
+    PS1+="${CRESET}${CBOLD}┌─[\A] $SSHNOTICE$CGREEN\u@\h${CRESET}:${CLBLUE}\w\n${CRESET}└─${CBOLD}($ecode) \\$ ${CRESET}"
 }
 
 
@@ -53,6 +53,8 @@ __prompt_command() {
 [[ -d ~/go/bin ]] && addpath ~/go/bin
 
 
-# set up ssh agent socket var
-export SSH_AGENT_PID=""
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+# set up ssh agent socket var (unless connected over ssh)
+if [[ -z $SSH_CLIENT ]]; then
+    export SSH_AGENT_PID=""
+    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+fi
